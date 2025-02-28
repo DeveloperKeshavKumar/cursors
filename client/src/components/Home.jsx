@@ -35,7 +35,7 @@ const renderUsersList = users => {
 
 export default function Home({ username }) {
 
-    const WS_URL = 'ws://cursors-backend-z9v5.onrender.com'
+    const WS_URL = 'wss://cursors-backend-z9v5.onrender.com'
     const THROTTLE = 100
 
     const { sendJsonMessage, lastJsonMessage } = useWebSocket(WS_URL, {
