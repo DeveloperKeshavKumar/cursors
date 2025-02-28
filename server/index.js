@@ -3,7 +3,8 @@ const url = require('url');
 const { WebSocketServer } = require('ws')
 const { v4: uuidv4 } = require('uuid');
 
-const PORT = 3000
+// Use the Render-provided PORT or default to 3000 for local development
+const PORT = process.env.PORT || 3000
 const server = http.createServer()
 const wsServer = new WebSocketServer({ server })
 
@@ -30,7 +31,6 @@ const handleMessage = (bytes, uuid) => {
     broadcastUsers()
 
     console.log(`${user.username} updated their state: ${JSON.stringify(user.state)}`)
-
 }
 
 const handleClose = (uuid) => {
@@ -60,4 +60,7 @@ wsServer.on('connection', (connection, request) => {
     connection.on('close', () => handleClose(uuid))
 })
 
-server.listen(PORT, console.log(`Server is running on http://localhost:${PORT}`))
+// Start the server on the provided PORT (from Render or default to 3000)
+server.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`)
+})
