@@ -1,10 +1,11 @@
-function App() {
+import { useState } from "react"
+import Login from "./components/Login"
+import Home from "./components/Home"
 
-  return (
-    <div>
-      <h1>Welcome to Cursors</h1>
-    </div>
-  )
+function App() {
+  const [username, setUsername ]= useState('')
+
+  return username? <Home username={username}/> : <Login submit={setUsername}/>
 }
 
 export default App
