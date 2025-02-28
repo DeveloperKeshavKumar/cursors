@@ -50,7 +50,7 @@ export default function Cursor({ name, point, color = "red" }) {
         fill="#000"
         stroke="none"
       >
-        {name}
+        {name.substr(0,4)+".."}
       </text>
     </svg>
   );
