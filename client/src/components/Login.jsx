@@ -11,7 +11,7 @@ export default function Login({ submit }) {
                 <form
                     onSubmit={(e) => {
                         e.preventDefault()
-                        submit(username)
+                        submit(username.trim())
                     }}
                     className="space-y-4"
                 >

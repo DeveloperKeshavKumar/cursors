@@ -1,7 +1,7 @@
 import React from "react";
 import { usePerfectCursor } from "../hooks/usePerfectCursor";
 
-export default function Cursor({ userId, point, color = "red" }) {
+export default function Cursor({ name, point, color = "red" }) {
   const rCursor = React.useRef(null);
 
   const animateCursor = React.useCallback(
@@ -27,27 +27,31 @@ export default function Cursor({ userId, point, color = "red" }) {
         position: "absolute",
         top: -15,
         left: -15,
-        width: 35,
-        height: 35,
+        width: 50,
+        height: 50,
+        zIndex: 2,
       }}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 35 35"
+      viewBox="0 0 50 40"
       fill="none"
-      fillRule="evenodd"
-      className="transform-gpu transition-all duration-200 ease-in-out"
     >
-      <g fill="rgba(0,0,0,.2)" transform="translate(1,1)">
-        <path d="m12 24.4219v-16.015l11.591 11.619h-6.781l-.411.124z" />
-        <path d="m21.0845 25.0962-3.605 1.535-4.682-11.089 3.686-1.553z" />
-      </g>
-      <g fill="white">
-        <path d="m12 24.4219v-16.015l11.591 11.619h-6.781l-.411.124z" />
-        <path d="m21.0845 25.0962-3.605 1.535-4.682-11.089 3.686-1.553z" />
-      </g>
-      <g fill={color}>
-        <path d="m19.751 24.4155-1.844.774-3.1-7.374 1.841-.775z" />
-        <path d="m13 10.814v11.188l2.969-2.866.428-.139h4.768z" />
-      </g>
+      <path
+        fill={color}
+        stroke="#000"
+        strokeWidth="1"
+        d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z"
+      />
+      <text
+        x="50%"
+        y="100%"
+        alignmentBaseline="middle"
+        textAnchor="middle"
+        fontSize="16"
+        fill="#000"
+        stroke="none"
+      >
+        {name}
+      </text>
     </svg>
   );
 }

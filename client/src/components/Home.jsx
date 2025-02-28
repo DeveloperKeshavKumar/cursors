@@ -16,7 +16,7 @@ const renderCursors = users => {
         const cursorColor = generateColor(user.username);
 
         return (
-            <Cursor key={uuid} point={[user.state.x, user.state.y]} color={cursorColor} />
+            <Cursor key={uuid} name={user.username} point={[user.state.x, user.state.y]} color={cursorColor} />
         )
     })
 }
@@ -52,13 +52,19 @@ export default function Home({ username }) {
         window.addEventListener('mousemove', e => {
             sendJsonMessageThrottled.current({ x: e.clientX, y: e.clientY })
         })
+
+        return () => {
+            window.removeEventListener('mousemove', () => {}); // Clean up event listener on component unmount
+        }
     }, [])
 
     if (lastJsonMessage) {
         return (
-            <div className="relative min-h-screen">
-                {renderCursors(lastJsonMessage)}
-                <ul className="absolute bottom-10 left-10 text-white bg-gray-800 p-4 rounded-lg shadow-lg">
+            <div className="relative min-h-screen flex flex-col">
+                <div className="flex-grow">
+                    {renderCursors(lastJsonMessage)}
+                </div>
+                <ul className="absolute bottom-2 top-2 left-10 overflow-y-auto text-white bg-gray-800 p-4 rounded-lg shadow-lg">
                     {renderUsersList(lastJsonMessage)}
                 </ul>
             </div>
