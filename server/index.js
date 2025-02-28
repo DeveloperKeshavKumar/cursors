@@ -5,7 +5,18 @@ const { v4: uuidv4 } = require('uuid');
 
 // Use the Render-provided PORT or default to 3000 for local development
 const PORT = process.env.PORT || 3000
-const server = http.createServer()
+const server = http.createServer((req, res) => {
+    if (req.method === 'GET' && req.url === '/') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Server is running!' }));
+    } else {
+        if (req.url.startsWith('/ws')) {
+            return;
+        }
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not Found');
+    }
+})
 const wsServer = new WebSocketServer({ server })
 
 const connections = {}
@@ -59,6 +70,7 @@ wsServer.on('connection', (connection, request) => {
     connection.on('message', message => handleMessage(message, uuid))
     connection.on('close', () => handleClose(uuid))
 })
+
 
 // Start the server on the provided PORT (from Render or default to 3000)
 server.listen(PORT, () => {
